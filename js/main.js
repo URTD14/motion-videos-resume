@@ -64,7 +64,54 @@ const brandingVideos = [
   }
 ];
 
-function buildVideoCard(video) {
+const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
+const modal = document.createElement("div");
+modal.className = "video-modal";
+modal.innerHTML = `
+  <div class="video-modal-backdrop"></div>
+  <div class="video-modal-inner">
+    <button class="video-modal-close" aria-label="Close">&times;</button>
+    <div class="video-modal-player">
+      <video controls playsinline></video>
+    </div>
+    <div class="video-modal-info">
+      <span class="video-modal-label"></span>
+      <span class="video-modal-title"></span>
+    </div>
+  </div>
+`;
+document.body.appendChild(modal);
+
+const modalVideo = modal.querySelector("video");
+const modalLabel = modal.querySelector(".video-modal-label");
+const modalTitle = modal.querySelector(".video-modal-title");
+
+function openModal(video) {
+  modalVideo.src = video.file;
+  modalVideo.load();
+  modalVideo.play().catch(() => {});
+  modalLabel.textContent = video.label;
+  modalTitle.textContent = video.title;
+  modal.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  modalVideo.pause();
+  modalVideo.removeAttribute("src");
+  modalVideo.load();
+  modal.classList.remove("active");
+  document.body.style.overflow = "";
+}
+
+modal.querySelector(".video-modal-close").addEventListener("click", closeModal);
+modal.querySelector(".video-modal-backdrop").addEventListener("click", closeModal);
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeModal();
+});
+
+function buildVideoCard(video, index) {
   const card = document.createElement("div");
   card.className = "video-card";
 
@@ -73,7 +120,7 @@ function buildVideoCard(video) {
   vid.muted = true;
   vid.loop = true;
   vid.playsInline = true;
-  vid.preload = "auto";
+  vid.preload = isTouch ? "metadata" : "auto";
   vid.load();
 
   const overlay = document.createElement("div");
@@ -86,23 +133,20 @@ function buildVideoCard(video) {
   card.appendChild(vid);
   card.appendChild(overlay);
 
-  card.addEventListener("mouseenter", () => {
-    vid.currentTime = 0;
-    vid.play().catch(() => {});
-  });
-
-  card.addEventListener("mouseleave", () => {
-    vid.pause();
-    vid.currentTime = 0;
-  });
-
-  card.addEventListener("click", () => {
-    if (vid.paused) {
+  if (!isTouch) {
+    card.addEventListener("mouseenter", () => {
       vid.currentTime = 0;
       vid.play().catch(() => {});
-    } else {
+    });
+
+    card.addEventListener("mouseleave", () => {
       vid.pause();
-    }
+      vid.currentTime = 0;
+    });
+  }
+
+  card.addEventListener("click", () => {
+    openModal(video);
   });
 
   return card;
@@ -126,8 +170,8 @@ function buildDemoCard(video) {
 
 document.addEventListener("DOMContentLoaded", () => {
   const motionGrid = document.getElementById("motion-grid");
-  motionVideos.forEach((v) => {
-    const card = buildVideoCard(v);
+  motionVideos.forEach((v, i) => {
+    const card = buildVideoCard(v, i);
     motionGrid.appendChild(card);
   });
 
@@ -141,4 +185,23 @@ document.addEventListener("DOMContentLoaded", () => {
   demoContainer.appendChild(
     buildDemoCard({ file: "videos/product-demos/blackbird.mp4" })
   );
+
+  if (isTouch) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const vid = entry.target.querySelector("video");
+        if (!vid) return;
+        if (entry.isIntersecting) {
+          vid.currentTime = 0;
+          vid.play().catch(() => {});
+        } else {
+          vid.pause();
+        }
+      });
+    }, { threshold: 0.4 });
+
+    document.querySelectorAll(".video-card").forEach((card) => {
+      observer.observe(card);
+    });
+  }
 });
