@@ -17,11 +17,6 @@ const brandingVideos = [
   { file: "videos/branding/gamblers-ruin.mp4", title: "Gambler's Ruin", label: "Probability / Risk", duration: 27.7 }
 ];
 
-const longformVideos = [
-  { file: "videos/long-form/black-scholes-to-mamba.mp4", title: "Black-Scholes to Mamba", label: "Mathematical Finance / Deep Learning", duration: 531.3 },
-  { file: "videos/long-form/mean-reversion.mp4", title: "Mean Reversion", label: "Statistical Arbitrage", duration: 236.2 }
-];
-
 const motionVideos = [
   { file: "videos/motion-design/backpropagation.mp4", title: "Backpropagation in 60 Seconds", label: "AI / Deep Learning", duration: 40.5 },
   { file: "videos/motion-design/attention.mp4", title: "Attention Is All You Need", label: "Transformers / LLMs", duration: 44.4 },
@@ -128,46 +123,6 @@ function buildVideoCard(video) {
   return card;
 }
 
-function buildLongFormCard(video) {
-  const card = document.createElement("div");
-  card.className = "longform-card";
-
-  const vid = document.createElement("video");
-  vid.src = video.file;
-  vid.muted = true;
-  vid.loop = true;
-  vid.playsInline = true;
-  vid.preload = "auto";
-
-  const info = document.createElement("div");
-  info.className = "longform-info";
-  info.innerHTML = `
-    <span class="longform-label">${video.label}</span>
-    <span class="longform-title">${video.title}</span>
-    <span class="longform-duration">${fmtDur(video.duration)}</span>
-  `;
-
-  card.appendChild(vid);
-  card.appendChild(info);
-
-  if (!isTouch) {
-    card.addEventListener("mouseenter", () => {
-      vid.currentTime = 0;
-      vid.play().catch(() => {});
-    });
-    card.addEventListener("mouseleave", () => {
-      vid.pause();
-      vid.currentTime = 0;
-    });
-  }
-
-  card.addEventListener("click", () => {
-    openModal(video);
-  });
-
-  return card;
-}
-
 function buildDemoCard(video) {
   const container = document.createElement("div");
   container.className = "demo-container";
@@ -200,11 +155,6 @@ document.addEventListener("DOMContentLoaded", () => {
     longformGrid.appendChild(buildLongFormCard(v));
   });
 
-  const motionGrid = document.getElementById("motion-grid");
-  motionVideos.forEach((v) => {
-    motionGrid.appendChild(buildVideoCard(v));
-  });
-
   if (isTouch) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -219,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }, { threshold: 0.4 });
 
-    document.querySelectorAll(".video-card, .longform-card").forEach((card) => {
+    document.querySelectorAll(".video-card").forEach((card) => {
       observer.observe(card);
     });
   }
