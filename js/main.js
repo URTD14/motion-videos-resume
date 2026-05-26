@@ -64,8 +64,6 @@ const brandingVideos = [
   }
 ];
 
-const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-
 const modal = document.createElement("div");
 modal.className = "video-modal";
 modal.innerHTML = `
@@ -111,7 +109,7 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeModal();
 });
 
-function buildVideoCard(video, index) {
+function buildVideoCard(video) {
   const card = document.createElement("div");
   card.className = "video-card";
 
@@ -120,8 +118,9 @@ function buildVideoCard(video, index) {
   vid.muted = true;
   vid.loop = true;
   vid.playsInline = true;
-  vid.preload = isTouch ? "metadata" : "auto";
+  vid.preload = "auto";
   vid.load();
+  vid.play().catch(() => {});
 
   const overlay = document.createElement("div");
   overlay.className = "video-card-overlay";
@@ -132,18 +131,6 @@ function buildVideoCard(video, index) {
 
   card.appendChild(vid);
   card.appendChild(overlay);
-
-  if (!isTouch) {
-    card.addEventListener("mouseenter", () => {
-      vid.currentTime = 0;
-      vid.play().catch(() => {});
-    });
-
-    card.addEventListener("mouseleave", () => {
-      vid.pause();
-      vid.currentTime = 0;
-    });
-  }
 
   card.addEventListener("click", () => {
     openModal(video);
@@ -170,8 +157,8 @@ function buildDemoCard(video) {
 
 document.addEventListener("DOMContentLoaded", () => {
   const motionGrid = document.getElementById("motion-grid");
-  motionVideos.forEach((v, i) => {
-    const card = buildVideoCard(v, i);
+  motionVideos.forEach((v) => {
+    const card = buildVideoCard(v);
     motionGrid.appendChild(card);
   });
 
@@ -185,23 +172,4 @@ document.addEventListener("DOMContentLoaded", () => {
   demoContainer.appendChild(
     buildDemoCard({ file: "videos/product-demos/blackbird.mp4" })
   );
-
-  if (isTouch) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const vid = entry.target.querySelector("video");
-        if (!vid) return;
-        if (entry.isIntersecting) {
-          vid.currentTime = 0;
-          vid.play().catch(() => {});
-        } else {
-          vid.pause();
-        }
-      });
-    }, { threshold: 0.4 });
-
-    document.querySelectorAll(".video-card").forEach((card) => {
-      observer.observe(card);
-    });
-  }
 });
