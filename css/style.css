@@ -223,6 +223,21 @@ a:hover {
   display: block;
 }
 
+.video-duration-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  background: rgba(44, 44, 42, 0.75);
+  color: #fff;
+  font-size: 0.75rem;
+  font-family: Georgia, serif;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
 .video-card-overlay {
   position: absolute;
   inset: 0;
@@ -272,6 +287,84 @@ a:hover {
   display: block;
   aspect-ratio: 16 / 9;
   object-fit: cover;
+}
+
+/* Long Form */
+.longform-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.longform-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.4s var(--transition), box-shadow 0.4s var(--transition);
+}
+
+.longform-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(44, 44, 42, 0.12);
+}
+
+.longform-card video {
+  width: 280px;
+  flex-shrink: 0;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.longform-info {
+  padding: 24px 24px 24px 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.longform-label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.longform-title {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.longform-duration {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: var(--muted);
+  background: rgba(44, 44, 42, 0.08);
+  padding: 4px 12px;
+  border-radius: 100px;
+}
+
+@media (max-width: 700px) {
+  .longform-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .longform-card video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+  .longform-info {
+    padding: 16px;
+  }
 }
 
 /* Contact */

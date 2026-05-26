@@ -20,46 +20,55 @@
 
 ## Showcase
 
-### Motion Design
-Six animated explainer reels covering AI, math & computer science — built with Manim (3Blue1Brown's animation engine), voiced via smallest.ai, and rendered at 1080×1920 60fps.
-
-| Preview | Title | Topic |
-|---|---|---|
-| <video src="videos/motion-design/backpropagation.mp4" width="160"/> | Backpropagation in 60 Seconds | AI / Deep Learning |
-| <video src="videos/motion-design/attention.mp4" width="160"/> | Attention Is All You Need | Transformers / LLMs |
-| <video src="videos/motion-design/neural-network-child.mp4" width="160"/> | A Neural Network Learns Like a Child | AI / Human Learning |
-| <video src="videos/motion-design/ai-broke-math.mp4" width="160"/> | AI Broke Math | Erdős Problem / 2026 |
-| <video src="videos/motion-design/entropy.mp4" width="160"/> | Why Entropy Always Increases | Physics / Information Theory |
-| <video src="videos/motion-design/free-will.mp4" width="160"/> | Free Will Is Bayesian | Probability / Philosophy |
-
 ### Branding — Gloqont
-Investment simulation platform branding videos — financial concepts explained through animation.
+Investment simulation platform — financial concepts through animation.
 
-| Preview | Title | Topic |
+| Preview | Title | Duration |
 |---|---|---|
-| <video src="videos/branding/black-scholes.mp4" width="160"/> | Black-Scholes Model | Options Pricing |
-| <video src="videos/branding/monte-carlo.mp4" width="160"/> | Monte Carlo 10K Futures | Risk Simulation |
-| <video src="videos/branding/kelly-criterion.mp4" width="160"/> | Kelly Criterion | Position Sizing |
-| <video src="videos/branding/volatility-drag.mp4" width="160"/> | Volatility Drag | Portfolio Decay |
-| <video src="videos/branding/correlation-breaks.mp4" width="160"/> | Correlation Breaks | Market Regimes |
-| <video src="videos/branding/gamblers-ruin.mp4" width="160"/> | Gambler's Ruin | Probability / Risk |
+| <video src="videos/branding/black-scholes.mp4" width="160"/> | Black-Scholes Model | 0:27 |
+| <video src="videos/branding/monte-carlo.mp4" width="160"/> | Monte Carlo 10K Futures | 0:40 |
+| <video src="videos/branding/kelly-criterion.mp4" width="160"/> | Kelly Criterion | 0:37 |
+| <video src="videos/branding/volatility-drag.mp4" width="160"/> | Volatility Drag | 0:36 |
+| <video src="videos/branding/correlation-breaks.mp4" width="160"/> | Correlation Breaks | 0:28 |
+| <video src="videos/branding/gamblers-ruin.mp4" width="160"/> | Gambler's Ruin | 0:27 |
 
 ### Product Demo — Blackbird
-GST invoicing and compliance platform — dashboard with auto GST calculation, invoice management, and GSTR-1 filing.
+GST invoicing and compliance platform — auto GST calculation, invoice management, GSTR-1 filing.
+
+### Long Form
+In-depth mathematical finance and statistical arbitrage explainers.
+
+| Preview | Title | Duration |
+|---|---|---|
+| <video src="videos/long-form/black-scholes-to-mamba.mp4" width="280"/> | Black-Scholes to Mamba | 28:27 |
+| <video src="videos/long-form/mean-reversion.mp4" width="280"/> | Mean Reversion | 3:56 |
+
+### Motion Design
+Animated explainer reels — AI, Math & Computer Science.
+
+| Preview | Title | Duration |
+|---|---|---|
+| <video src="videos/motion-design/backpropagation.mp4" width="160"/> | Backpropagation in 60 Seconds | 0:40 |
+| <video src="videos/motion-design/attention.mp4" width="160"/> | Attention Is All You Need | 0:44 |
+| <video src="videos/motion-design/neural-network-child.mp4" width="160"/> | A Neural Network Learns Like a Child | 1:54 |
+| <video src="videos/motion-design/ai-broke-math.mp4" width="160"/> | AI Broke Math | 0:43 |
+| <video src="videos/motion-design/entropy.mp4" width="160"/> | Why Entropy Always Increases | 0:43 |
+| <video src="videos/motion-design/riemann.mp4" width="160"/> | Riemann Hypothesis | 2:23 |
 
 ## Structure
 
 ```
 motion-videos-resume/
-├── index.html            Single-page portfolio site
-├── css/style.css         OXDHYEY brand styling
-├── js/main.js            Interactivity (hover-play, etc.)
+├── index.html
+├── css/style.css
+├── js/main.js
 ├── videos/
-│   ├── motion-design/    6 animated explainer reels
 │   ├── branding/         6 Gloqont branding videos
-│   └── product-demos/    Blackbird demo
-├── LICENSE               All Rights Reserved
-└── README.md             This file
+│   ├── product-demos/    Blackbird demo
+│   ├── long-form/        2 in-depth explainers
+│   └── motion-design/    6 animated reels
+├── LICENSE
+└── README.md
 ```
 
 ## License
