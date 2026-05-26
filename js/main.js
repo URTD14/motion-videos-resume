@@ -8,9 +8,27 @@ function fmtDur(s) {
 
 const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
+const brandingVideos = [
+  { file: "videos/branding/black-scholes.mp4", title: "Black-Scholes Model", label: "Options Pricing", duration: 27.6 },
+  { file: "videos/branding/monte-carlo.mp4", title: "Monte Carlo 10K Futures", label: "Risk Simulation", duration: 40.0 },
+  { file: "videos/branding/kelly-criterion.mp4", title: "Kelly Criterion", label: "Position Sizing", duration: 37.3 },
+  { file: "videos/branding/volatility-drag.mp4", title: "Volatility Drag", label: "Portfolio Decay", duration: 36.4 },
+  { file: "videos/branding/correlation-breaks.mp4", title: "Correlation Breaks", label: "Market Regimes", duration: 28.9 },
+  { file: "videos/branding/gamblers-ruin.mp4", title: "Gambler's Ruin", label: "Probability / Risk", duration: 27.7 }
+];
+
 const longformVideos = [
   { file: "videos/long-form/black-scholes-to-mamba.mp4", title: "Black-Scholes to Mamba", label: "Mathematical Finance / Deep Learning", duration: 531.3 },
   { file: "videos/long-form/mean-reversion.mp4", title: "Mean Reversion", label: "Statistical Arbitrage", duration: 236.2 }
+];
+
+const motionVideos = [
+  { file: "videos/motion-design/backpropagation.mp4", title: "Backpropagation in 60 Seconds", label: "AI / Deep Learning", duration: 40.5 },
+  { file: "videos/motion-design/attention.mp4", title: "Attention Is All You Need", label: "Transformers / LLMs", duration: 44.4 },
+  { file: "videos/motion-design/neural-network-child.mp4", title: "A Neural Network Learns Like a Child", label: "AI / Human Learning", duration: 114.2 },
+  { file: "videos/motion-design/ai-broke-math.mp4", title: "AI Broke Math", label: "Erdős Problem / 2026", duration: 43.2 },
+  { file: "videos/motion-design/entropy.mp4", title: "Why Entropy Always Increases", label: "Physics / Information Theory", duration: 43.9 },
+  { file: "videos/motion-design/riemann.mp4", title: "Riemann Hypothesis", label: "Number Theory", duration: 143.3 }
 ];
 
 const modal = document.createElement("div");
@@ -66,6 +84,50 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeModal();
 });
 
+function buildVideoCard(video) {
+  const card = document.createElement("div");
+  card.className = "video-card";
+
+  const vid = document.createElement("video");
+  vid.src = video.file;
+  vid.muted = true;
+  vid.loop = true;
+  vid.playsInline = true;
+  vid.preload = "auto";
+
+  const badge = document.createElement("span");
+  badge.className = "video-duration-badge";
+  badge.textContent = fmtDur(video.duration);
+
+  const overlay = document.createElement("div");
+  overlay.className = "video-card-overlay";
+  overlay.innerHTML = `
+    <span class="video-card-label">${video.label}</span>
+    <span class="video-card-title">${video.title}</span>
+  `;
+
+  card.appendChild(vid);
+  card.appendChild(badge);
+  card.appendChild(overlay);
+
+  if (!isTouch) {
+    card.addEventListener("mouseenter", () => {
+      vid.currentTime = 0;
+      vid.play().catch(() => {});
+    });
+    card.addEventListener("mouseleave", () => {
+      vid.pause();
+      vid.currentTime = 0;
+    });
+  }
+
+  card.addEventListener("click", () => {
+    openModal(video);
+  });
+
+  return card;
+}
+
 function buildLongFormCard(video) {
   const card = document.createElement("div");
   card.className = "longform-card";
@@ -106,10 +168,41 @@ function buildLongFormCard(video) {
   return card;
 }
 
+function buildDemoCard(video) {
+  const container = document.createElement("div");
+  container.className = "demo-container";
+
+  const vid = document.createElement("video");
+  vid.src = video.file;
+  vid.muted = true;
+  vid.loop = true;
+  vid.playsInline = true;
+  vid.preload = "metadata";
+  vid.controls = true;
+
+  container.appendChild(vid);
+  return container;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  const brandingGrid = document.getElementById("branding-grid");
+  brandingVideos.forEach((v) => {
+    brandingGrid.appendChild(buildVideoCard(v));
+  });
+
+  const demoContainer = document.getElementById("demo-container");
+  demoContainer.appendChild(
+    buildDemoCard({ file: "videos/product-demos/blackbird.mp4" })
+  );
+
   const longformGrid = document.getElementById("longform-grid");
   longformVideos.forEach((v) => {
     longformGrid.appendChild(buildLongFormCard(v));
+  });
+
+  const motionGrid = document.getElementById("motion-grid");
+  motionVideos.forEach((v) => {
+    motionGrid.appendChild(buildVideoCard(v));
   });
 
   if (isTouch) {
@@ -126,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }, { threshold: 0.4 });
 
-    document.querySelectorAll(".longform-card").forEach((card) => {
+    document.querySelectorAll(".video-card, .longform-card").forEach((card) => {
       observer.observe(card);
     });
   }
