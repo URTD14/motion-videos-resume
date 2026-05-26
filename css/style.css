@@ -73,6 +73,30 @@ a:hover {
   gap: 32px;
 }
 
+@media (max-width: 640px) {
+  .nav-inner {
+    padding: 12px 16px;
+  }
+  .nav-links {
+    gap: 24px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+  .nav-links a {
+    font-size: 0.82rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .nav-logo {
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+}
+
 .nav-links a {
   font-size: 0.95rem;
   color: var(--text);
