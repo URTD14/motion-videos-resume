@@ -309,7 +309,6 @@ a:hover {
 .demo-container {
   width: 100%;
   border-radius: var(--radius);
-  overflow: hidden;
   background: var(--card-bg);
 }
 
@@ -318,6 +317,7 @@ a:hover {
   display: block;
   aspect-ratio: 16 / 9;
   object-fit: cover;
+  border-radius: var(--radius);
 }
 
 /* Long Form */
@@ -334,7 +334,6 @@ a:hover {
   gap: 32px;
   background: var(--card-bg);
   border-radius: var(--radius);
-  overflow: hidden;
   cursor: pointer;
   transition: transform 0.4s var(--transition), box-shadow 0.4s var(--transition);
 }
@@ -350,6 +349,7 @@ a:hover {
   display: block;
   aspect-ratio: 16 / 9;
   object-fit: cover;
+  border-radius: var(--radius) 0 0 var(--radius);
 }
 
 .longform-info {
@@ -392,6 +392,7 @@ a:hover {
   .longform-card video {
     width: 100%;
     aspect-ratio: 16 / 9;
+    border-radius: var(--radius) var(--radius) 0 0;
   }
   .longform-info {
     padding: 16px;
