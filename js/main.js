@@ -6,6 +6,8 @@ function fmtDur(s) {
   return `${m}:${String(sec).padStart(2, "0")}`;
 }
 
+const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
 const brandingVideos = [
   { file: "videos/branding/black-scholes.mp4", title: "Black-Scholes Model", label: "Options Pricing", duration: 27.6 },
   { file: "videos/branding/monte-carlo.mp4", title: "Monte Carlo 10K Futures", label: "Risk Simulation", duration: 40.0 },
@@ -84,8 +86,6 @@ function buildVideoCard(video) {
   vid.loop = true;
   vid.playsInline = true;
   vid.preload = "auto";
-  vid.load();
-  vid.play().catch(() => {});
 
   const badge = document.createElement("span");
   badge.className = "video-duration-badge";
@@ -101,6 +101,17 @@ function buildVideoCard(video) {
   card.appendChild(vid);
   card.appendChild(badge);
   card.appendChild(overlay);
+
+  if (!isTouch) {
+    card.addEventListener("mouseenter", () => {
+      vid.currentTime = 0;
+      vid.play().catch(() => {});
+    });
+    card.addEventListener("mouseleave", () => {
+      vid.pause();
+      vid.currentTime = 0;
+    });
+  }
 
   card.addEventListener("click", () => {
     openModal(video);
@@ -119,8 +130,6 @@ function buildLongFormCard(video) {
   vid.loop = true;
   vid.playsInline = true;
   vid.preload = "auto";
-  vid.load();
-  vid.play().catch(() => {});
 
   const info = document.createElement("div");
   info.className = "longform-info";
@@ -132,6 +141,17 @@ function buildLongFormCard(video) {
 
   card.appendChild(vid);
   card.appendChild(info);
+
+  if (!isTouch) {
+    card.addEventListener("mouseenter", () => {
+      vid.currentTime = 0;
+      vid.play().catch(() => {});
+    });
+    card.addEventListener("mouseleave", () => {
+      vid.pause();
+      vid.currentTime = 0;
+    });
+  }
 
   card.addEventListener("click", () => {
     openModal(video);
@@ -176,4 +196,23 @@ document.addEventListener("DOMContentLoaded", () => {
   motionVideos.forEach((v) => {
     motionGrid.appendChild(buildVideoCard(v));
   });
+
+  if (isTouch) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const vid = entry.target.querySelector("video");
+        if (!vid) return;
+        if (entry.isIntersecting) {
+          vid.currentTime = 0;
+          vid.play().catch(() => {});
+        } else {
+          vid.pause();
+        }
+      });
+    }, { threshold: 0.4 });
+
+    document.querySelectorAll(".video-card, .longform-card").forEach((card) => {
+      observer.observe(card);
+    });
+  }
 });

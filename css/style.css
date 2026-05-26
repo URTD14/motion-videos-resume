@@ -255,6 +255,13 @@ a:hover {
   opacity: 1;
 }
 
+@media (pointer: coarse) {
+  .video-card .video-card-overlay {
+    opacity: 1;
+    background: linear-gradient(to top, rgba(44, 44, 42, 0.8) 0%, rgba(44, 44, 42, 0.2) 50%, transparent 70%);
+  }
+}
+
 .video-card-title {
   font-size: 1rem;
   font-weight: 700;
