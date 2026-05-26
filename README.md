@@ -40,7 +40,7 @@ In-depth mathematical finance and statistical arbitrage explainers.
 
 | Preview | Title | Duration |
 |---|---|---|
-| <video src="videos/long-form/black-scholes-to-mamba.mp4" width="280"/> | Black-Scholes to Mamba | 28:27 |
+| <video src="videos/long-form/black-scholes-to-mamba.mp4" width="280"/> | Black-Scholes to Mamba | 8:51 |
 | <video src="videos/long-form/mean-reversion.mp4" width="280"/> | Mean Reversion | 3:56 |
 
 ### Motion Design

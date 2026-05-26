@@ -16,7 +16,7 @@ const brandingVideos = [
 ];
 
 const longformVideos = [
-  { file: "videos/long-form/black-scholes-to-mamba.mp4", title: "Black-Scholes to Mamba", label: "Mathematical Finance / Deep Learning", duration: 1707.7 },
+  { file: "videos/long-form/black-scholes-to-mamba.mp4", title: "Black-Scholes to Mamba", label: "Mathematical Finance / Deep Learning", duration: 531.3 },
   { file: "videos/long-form/mean-reversion.mp4", title: "Mean Reversion", label: "Statistical Arbitrage", duration: 236.2 }
 ];
 
