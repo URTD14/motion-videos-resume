@@ -55,7 +55,15 @@ const modalTitle = modal.querySelector(".video-modal-title");
 function openModal(video) {
   modalVideo.src = video.file;
   modalVideo.load();
-  modalVideo.play().catch(() => {});
+
+  modalVideo.addEventListener("loadedmetadata", function setRatio() {
+    modalVideo.removeEventListener("loadedmetadata", setRatio);
+    const ratio = modalVideo.videoWidth / modalVideo.videoHeight;
+    modal.classList.toggle("is-wide", ratio > 1);
+    modal.classList.toggle("is-tall", ratio <= 1);
+    modalVideo.play().catch(() => {});
+  }, { once: true });
+
   modalLabel.textContent = video.label;
   modalTitle.textContent = video.title + " \u2014 " + fmtDur(video.duration);
   modal.classList.add("active");

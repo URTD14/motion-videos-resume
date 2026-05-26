@@ -461,6 +461,10 @@ a:hover {
   align-items: center;
 }
 
+.video-modal.is-wide .video-modal-inner {
+  max-width: 800px;
+}
+
 .video-modal-close {
   align-self: flex-end;
   background: none;
@@ -490,7 +494,12 @@ a:hover {
   width: 100%;
   display: block;
   aspect-ratio: 9 / 16;
-  object-fit: cover;
+  object-fit: contain;
+  background: #000;
+}
+
+.video-modal.is-wide .video-modal-player video {
+  aspect-ratio: 16 / 9;
 }
 
 .video-modal-info {
