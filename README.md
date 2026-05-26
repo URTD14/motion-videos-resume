@@ -45,7 +45,7 @@ Investment simulation platform branding videos — financial concepts explained 
 | <video src="videos/branding/gamblers-ruin.mp4" width="160"/> | Gambler's Ruin | Probability / Risk |
 
 ### Product Demo — Blackbird
-Live trading platform demo showcasing real-time capabilities.
+GST invoicing and compliance platform — dashboard with auto GST calculation, invoice management, and GSTR-1 filing.
 
 ## Structure
 
@@ -61,14 +61,6 @@ motion-videos-resume/
 ├── LICENSE               All Rights Reserved
 └── README.md             This file
 ```
-
-## Tech Stack
-
-- **Frontend**: Pure HTML, CSS, JavaScript — zero build step
-- **Design**: OXDHYEY brand palette (`#F5ECD7` parchment, `#B04A1C` rust, `#2C2C2A` charcoal)
-- **Typography**: Georgia serif
-- **Hosting**: Vercel
-- **Animations**: Manim (Python), smallest.ai TTS
 
 ## License
 
