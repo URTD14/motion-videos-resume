@@ -73,7 +73,8 @@ function buildVideoCard(video) {
   vid.muted = true;
   vid.loop = true;
   vid.playsInline = true;
-  vid.preload = "metadata";
+  vid.preload = "auto";
+  vid.load();
 
   const overlay = document.createElement("div");
   overlay.className = "video-card-overlay";
@@ -85,26 +86,19 @@ function buildVideoCard(video) {
   card.appendChild(vid);
   card.appendChild(overlay);
 
-  let playTimer = null;
-
   card.addEventListener("mouseenter", () => {
-    playTimer = setTimeout(() => {
-      vid.play().catch(() => {});
-    }, 300);
+    vid.currentTime = 0;
+    vid.play().catch(() => {});
   });
 
   card.addEventListener("mouseleave", () => {
-    if (playTimer) {
-      clearTimeout(playTimer);
-      playTimer = null;
-    }
     vid.pause();
     vid.currentTime = 0;
   });
 
-  // Touch support: tap to toggle
   card.addEventListener("click", () => {
     if (vid.paused) {
+      vid.currentTime = 0;
       vid.play().catch(() => {});
     } else {
       vid.pause();
